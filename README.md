@@ -10,3 +10,5 @@ I attempted to follow the guidelines on the [MIT libraries formatting guide](htt
 In any case, I take no responsibility for the accuracy of this template. Please verify that your thesis adheres to the MIT libraries guidelines.
 
 Happy writing!
+
+![Sample Title Page](READMEs/title_page_sample.png)
