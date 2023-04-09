@@ -402,7 +402,11 @@ reserved.\par\permission}}
 % Occacionally you will need to exactly specify the text of the 
 % copyright notice.  The \copyrightnoticetext command is then useful.
 \long\def\copyrightnoticetext#1{\gdef\@copyrightnotice{#1}}
-\def\@copyrightnotice{\copyright\ \Mit\ \@degreeyear.  All rights reserved.}
+%\def\@copyrightnotice{\copyright\ \Mit\ \@degreeyear.  All rights reserved.}
+
+% As of 2023, the copyright notice requirement has changed. 
+% Now the author owns the copyright and must give MIT a license.
+\copyrightnoticetext{\copyright\ \@degreeyear\ \@author. All rights reserved.\par{\small\permission}}
 
 %% `vi' documentclass option: Specifying this option automatically
 %% copyrights the thesis to the author and gives MIT permission to copy and
@@ -437,7 +441,8 @@ reserved.\par\permission}}
 \def\supervisor#1#2{\setbox\@titlesupervisor\vbox
   {\unvbox\@titlesupervisor \vskip 10pt% plus 1fil minus 1fil
   \def\baselinestretch{1}\large
-  \signature{Certified by}{#1 \\ #2 \\ Thesis Supervisor}}
+  \noindent\choosecase{\small Certified by:}\hspace{1.11cm}\parbox[t]{11cm}{\small #1 \\ #2 \\ Thesis Supervisor}}
+  %\signature{Certified by}{#1 \\ #2 \\ Thesis Supervisor}}
   \setbox\@abstractsupervisor\vbox{\unvbox\@abstractsupervisor
   \vskip\baselineskip \def\baselinestretch{1}\@normalsize 
   \par\noindent Thesis Supervisor: #1 \\ Title: #2}}
@@ -469,14 +474,17 @@ at the
 \@copyrightnotice
 \par
 \vskip 3\baselineskip
-\signature{Author}{\@department \\ \@thesisdate}
-\par
+\begin{flushleft}
+  \choosecase{\small Authored by:}\hspace{1cm}\parbox[t]{12cm}{\small \@author \\ \@department \\ \@thesisdate}
+% \signature{Author}{\@department \\ \@thesisdate}
+% \par
 \vfill
 \unvbox\@titlesupervisor
 \par
 \vfill
-\signature{Accepted by}{\@chairmanname \\ \@chairmantitle}
+\noindent\choosecase{\small Accepted by:}\hspace{1.02cm}\parbox[t]{11cm}{\small \@chairmanname \\ \@chairmantitle}
 \vfill
+\end{flushleft}
 \end{titlepage}}
 
 % this environment should probably be called abstract,
@@ -521,11 +529,13 @@ requirements for the \@degreeword\ of \\
 \def\MIT{MASSACHUSETTS INSTITUTE OF TECHNOLOGY}
 \def\Mit{Massachusetts Institute of Technology}
 
+%bkettle 2023: thesis permission text has changed
 \def\permission{\par\noindent{\centering
-   The author hereby grants to MIT permission to reproduce and to
-   distribute publicly paper and electronic copies of this thesis
-   document in whole or in part in any medium now known or hereafter
-   created.}\par}
+  The author hereby grants to MIT a nonexclusive, worldwide, 
+  irrevocable, royalty-free license to exercise any and all
+  rights under copyright, including to reproduce, preserve, 
+  distribute and publicly display copies of the thesis, or 
+  release the thesis under an open-access license.}\par}
 
 \def\signature#1#2{\par\noindent#1\dotfill\null\\*
   {\raggedleft #2\par}}
