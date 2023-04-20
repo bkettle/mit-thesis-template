@@ -180,10 +180,10 @@
     \typeout{Single spaced}
     \def\mystretch{1}}	
 
-%% `vi' and `upcase' document style options.  Krishna Sethuraman (1990)
-\newcount\vithesis
-\DeclareOption{vi}{\typeout{Course VI/VIII thesis style.}\advance\vithesis by1}
-\vithesis=0
+%% Pre-2023 theses are copyrighted to MIT instead of the author.
+\newcount\oldthesis
+\DeclareOption{old}{\typeout{Pre-2023 thesis copyright style}\advance\oldthesis by1}
+\oldthesis=0
 
 \DeclareOption{upcase}{\typeout{Uppercase cover page.}
 	\gdef\choosecase#1{\uppercase\expandafter{#1}}}
@@ -402,20 +402,15 @@ reserved.\par\permission}}
 % Occacionally you will need to exactly specify the text of the 
 % copyright notice.  The \copyrightnoticetext command is then useful.
 \long\def\copyrightnoticetext#1{\gdef\@copyrightnotice{#1}}
-%\def\@copyrightnotice{\copyright\ \Mit\ \@degreeyear.  All rights reserved.}
+\def\@copyrightnotice{\copyright\ \Mit\ \@degreeyear.  All rights reserved.}
 
-% As of 2023, the copyright notice requirement has changed. 
-% Now the author owns the copyright and must give MIT a license.
-\copyrightnoticetext{\copyright\ \@degreeyear\ \@author. All rights reserved.\par{\small\permission}}
-
-%% `vi' documentclass option: Specifying this option automatically
-%% copyrights the thesis to the author and gives MIT permission to copy and
+%% `old' documentclass option: Copyrights the thesis to MIT. As of 2023 we
+%% copyright the thesis to the author and gives MIT permission to copy and
 %% distribute the document.  If you want, you can still specify
 %% \copyrightnotice{stuff} to copyright to someone else, or
 %% \copyrightnoticetext{stuff} to specify the exact text of the copyright
 %% notice.
-\ifodd\vithesis \copyrightnoticetext{\copyright\ \@author,
-\uppercase\expandafter{\romannumeral\@degreeyear}.  All rights reserved.\par\permission}
+\unless\ifodd\oldthesis \copyrightnoticetext{\copyright\ \@degreeyear\ \@author.  All rights reserved.\par\permission}
 %% or just
 %%\@degreeyear}}
 \typeout{Copyright given to author,
@@ -441,8 +436,7 @@ reserved.\par\permission}}
 \def\supervisor#1#2{\setbox\@titlesupervisor\vbox
   {\unvbox\@titlesupervisor \vskip 10pt% plus 1fil minus 1fil
   \def\baselinestretch{1}\large
-  \noindent\choosecase{\small Certified by:}\hspace{1.11cm}\parbox[t]{11cm}{\small #1 \\ #2 \\ Thesis Supervisor}}
-  %\signature{Certified by}{#1 \\ #2 \\ Thesis Supervisor}}
+  \signature{Certified by}{#1 \\ #2 \\ Thesis Supervisor}}
   \setbox\@abstractsupervisor\vbox{\unvbox\@abstractsupervisor
   \vskip\baselineskip \def\baselinestretch{1}\@normalsize 
   \par\noindent Thesis Supervisor: #1 \\ Title: #2}}
@@ -474,17 +468,14 @@ at the
 \@copyrightnotice
 \par
 \vskip 3\baselineskip
-\begin{flushleft}
-  \choosecase{\small Authored by:}\hspace{1cm}\parbox[t]{12cm}{\small \@author \\ \@department \\ \@thesisdate}
-% \signature{Author}{\@department \\ \@thesisdate}
-% \par
+\signature{Authored By}{\@author \\ \@department \\ \@thesisdate}
+\par
 \vfill
 \unvbox\@titlesupervisor
 \par
 \vfill
-\noindent\choosecase{\small Accepted by:}\hspace{1.02cm}\parbox[t]{11cm}{\small \@chairmanname \\ \@chairmantitle}
+\signature{Accepted by}{\@chairmanname \\ \@chairmantitle}
 \vfill
-\end{flushleft}
 \end{titlepage}}
 
 % this environment should probably be called abstract,
@@ -529,16 +520,10 @@ requirements for the \@degreeword\ of \\
 \def\MIT{MASSACHUSETTS INSTITUTE OF TECHNOLOGY}
 \def\Mit{Massachusetts Institute of Technology}
 
-%bkettle 2023: thesis permission text has changed
-\def\permission{\par\noindent{\centering
-  The author hereby grants to MIT a nonexclusive, worldwide, 
-  irrevocable, royalty-free license to exercise any and all
-  rights under copyright, including to reproduce, preserve, 
-  distribute and publicly display copies of the thesis, or 
-  release the thesis under an open-access license.}\par}
+\def\permission{\par\noindent{\centering\normalsize
+   The author hereby grants to MIT a nonexclusive, worldwide, irrevocable, royalty-free license to exercise any and all rights under copyright, including to reproduce, preserve, distribute and publicly display copies of the thesis, or release the thesis under an open-access license.}\par}
 
-\def\signature#1#2{\par\noindent#1\dotfill\null\\*
-  {\raggedleft #2\par}}
+\def\signature#1#2{\normalsize\raggedright\parbox{7em}{#1:}\parbox[t]{\dimexpr\textwidth-7em\relax}{#2\par}}
 
 \def\abstract{\subsection*{Abstract}\small\def\baselinestretch{1}\@normalsize}
 \def\endabstract{\par}
