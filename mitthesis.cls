@@ -143,8 +143,8 @@
 %%%%%%%% Newer additions 
 %
 % documentclass options - 
-% vi		For MIT course VI or VIII thesis - will copyright the thesis to
-% 		you while giving MIT permission to copy and distribute it.
+% mitowned	Will copyright the thesis to MIT instead of to you
+% 		while giving MIT permission to copy and distribute it.
 % upcase	Will put much of the cover page in uppercase, as per the
 % 		example on page 17 of the *Specifications for Thesis
 % 		Preparation*, (revised 1989)
@@ -181,9 +181,9 @@
     \def\mystretch{1}}	
 
 %% Pre-2023 theses are copyrighted to MIT instead of the author.
-\newcount\oldthesis
-\DeclareOption{old}{\typeout{Pre-2023 thesis copyright style}\advance\oldthesis by1}
-\oldthesis=0
+\newcount\mitownedthesis
+\DeclareOption{mitowned}{\typeout{Pre-2023 MIT-owned copyright thesis style}\advance\mitownedthesis by1}
+\mitownedthesis=0
 
 \DeclareOption{upcase}{\typeout{Uppercase cover page.}
 	\gdef\choosecase#1{\uppercase\expandafter{#1}}}
@@ -404,13 +404,13 @@ reserved.\par\permission}}
 \long\def\copyrightnoticetext#1{\gdef\@copyrightnotice{#1}}
 \def\@copyrightnotice{\copyright\ \Mit\ \@degreeyear.  All rights reserved.}
 
-%% `old' documentclass option: Copyrights the thesis to MIT. As of 2023 we
+%% `mitowned' documentclass option: Copyrights the thesis to MIT. As of 2023 we
 %% copyright the thesis to the author and gives MIT permission to copy and
 %% distribute the document.  If you want, you can still specify
 %% \copyrightnotice{stuff} to copyright to someone else, or
 %% \copyrightnoticetext{stuff} to specify the exact text of the copyright
 %% notice.
-\unless\ifodd\oldthesis \copyrightnoticetext{\copyright\ \@degreeyear\ \@author.  All rights reserved.\par\permission}
+\unless\ifodd\mitownedthesis \copyrightnoticetext{\copyright\ \@degreeyear\ \@author.  All rights reserved.\par\permission}
 %% or just
 %%\@degreeyear}}
 \typeout{Copyright given to author,
