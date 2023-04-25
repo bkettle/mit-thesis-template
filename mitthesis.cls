@@ -468,7 +468,7 @@ at the
 \@copyrightnotice
 \par
 \vskip 3\baselineskip
-\signature{Authored By}{\@author \\ \@department \\ \@thesisdate}
+\signature{Authored by}{\@author \\ \@department \\ \@thesisdate}
 \par
 \vfill
 \unvbox\@titlesupervisor
